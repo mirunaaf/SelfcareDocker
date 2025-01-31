@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
@@ -38,3 +39,27 @@ def insertuser(request):
     ob.save()
 
     return redirect("/menu")
+
+
+def login(request):
+     return render(request, "myapp/login.html", {})
+
+def loginuser(request):
+    if request.method == "POST":
+        text_uname = request.POST.get("tuname")
+        text_password = request.POST.get("tupassword")
+
+        try:
+            user = User.objects.get(username=text_uname)  # Look up user by email
+            if text_password == user.password:  # Compare passwords directly (⚠)
+                request.session["user_id"] = user.id
+                print(user.id)         # Manually set session
+                messages.success(request, "Login successful!")
+                return redirect("menu")
+            else:
+                messages.error(request, "Invalid username or password.")
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist.")
+
+    return render(request, "myapp/login.html")
+

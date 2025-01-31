@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+
 
 
 # Create your views here.
@@ -63,3 +63,13 @@ def loginuser(request):
 
     return render(request, "myapp/login.html")
 
+
+def logout(request):
+    return render(request, "myapp/logout.html", {})
+
+
+def logoutuser(request):
+    if "user_id" in request.session:  # Check if the user is logged in
+        del request.session["user_id"]  # Remove user from session
+    messages.success(request, "You have been logged out.")
+    return redirect("index")  # Redirect to login page after logout

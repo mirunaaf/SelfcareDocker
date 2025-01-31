@@ -14,21 +14,23 @@ body {
 .container * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Ensures consistent sizing */
+    box-sizing: border-box;
 }
 
 .container {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Ensures full viewport height */
+    height: 100vh;
     text-align: center;
     background: #f7ddc7;
     padding: 20px;
-    width: 1000px; /* Adjusted to a more suitable max width */
+    width: 1000px;
     margin: auto;
-    box-sizing: border-box; /* Prevents overflow due to padding */
+    box-sizing: border-box;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -50,7 +52,7 @@ h1 {
 .button-container {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Ensures space between buttons */
+    gap: 15px;
     margin-top: 10px;
 }
 
@@ -66,4 +68,84 @@ h1 {
 
 .btn:hover {
     background-color: #207567;
+}
+
+/*menu*/
+.tiles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.tile:nth-child(1) {
+    background-image: url('/static/myapp/images/dailyRecord.webp');
+}
+
+.tile:nth-child(2) {
+    background-image: url('/static/myapp/images/journal2.webp');
+}
+
+.tile:nth-child(3) {
+    background-image: url('/static/myapp/images/goals.webp');
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/static/myapp/images/account.webp');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 40%;
+    min-width: 300px;
+    min-height: 200px;
+    text-align: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.tile:hover {
+    background: #dbada6;
+    transform: scale(1.05);
+}
+
+.tile h2 {
+    margin: 0;
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.tile p {
+    font-size: 14px;
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/*logout button*/
+.logout-container {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+.logout-btn {
+    background-color: #dbada6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.logout-btn:hover {
+    background-color: #e46666;
 }

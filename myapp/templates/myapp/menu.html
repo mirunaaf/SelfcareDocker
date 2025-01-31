@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
+</head>
+<body>
+
+    <div class="container">git
+        <div class="logout-container">
+            <button type="submit" class="logout-btn">Logout</button>
+        </div>
+        <h1 style="margin-bottom: 40px;">Self-Care Menu</h1>
+        <div class="tiles">
+            <div class="tile" onclick="location.href='daily-records.html'">
+                <h2>Daily Records</h2>
+                <p>Track your self-care habits and activities.</p>
+            </div>
+            <div class="tile" onclick="location.href='journal.html'">
+                <h2>Journal</h2>
+                <p>Write down your thoughts and reflections.</p>
+            </div>
+            <div class="tile" onclick="location.href='your-goals.html'">
+                <h2>Your Goals</h2>
+                <p>Set and monitor your personal growth objectives.</p>
+            </div>
+            <div class="tile" onclick="location.href='your-profile.html'">
+                <h2>Your Profile</h2>
+                <p>Manage your personal information and settings.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

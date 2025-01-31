@@ -62,15 +62,16 @@
 <input type="tel" id="tupassword2" name="tupassword2" placeholder="Confirm your Password">
 
     <input type="submit" name="reg" value="Click to Register">
-</form>
-
-{% if messages %}
+    {% if messages %}
     <ul class="messages">
         {% for message in messages %}
             <li class="{{ message.tags }}">{{ message }}</li>
         {% endfor %}
     </ul>
 {% endif %}
+</form>
+
+
 
 </body>
 </html>

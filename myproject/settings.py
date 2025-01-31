@@ -87,7 +87,7 @@ DATABASES = {
 DATABASES = {
     'default': {
        'ENGINE':'django.db.backends.mysql',
-       'NAME':'myapp',
+       'NAME':'selfcare2',
        'USER':'root',
        'PASSWORD':'password',
        'HOST':'localhost',

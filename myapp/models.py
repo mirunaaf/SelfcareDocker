@@ -8,3 +8,11 @@ class User(models.Model):
 
     class Meta:
         db_table = "user"
+
+
+class DailyActivity(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to User model
+    date = models.DateField()
+    water_intake = models.FloatField()
+    sleep_hours = models.FloatField()
+    meditation = models.IntegerField()

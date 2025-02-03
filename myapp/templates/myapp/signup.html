@@ -23,7 +23,7 @@
             margin-bottom: 8px;
             font-weight: bold;
         }
-        input[type="text"], input[type="email"], input[type="tel"] {
+        input[type="text"], input[type="email"], input[type="password"] {
             width: calc(100% - 20px);
             padding: 8px 10px;
             margin-bottom: 15px;
@@ -49,6 +49,7 @@
 <form name="register" method="post" action="../insertuser">
     {% csrf_token %}
 
+
     <label for="tuname">Username:</label>
 <input type="text" id="tuname" name="tuname" placeholder="Enter your Name">
 
@@ -56,10 +57,10 @@
 <input type="email" id="tuemail" name="tuemail" placeholder="Enter your Email">
 
     <label for="tupassword">Password:</label>
-<input type="tel" id="tupassword" name="tupassword" placeholder="Enter your Password">
+<input type="password" id="tupassword" name="tupassword" placeholder="Enter your Password">
 
     <label for="tupassword2">Password2:</label>
-<input type="tel" id="tupassword2" name="tupassword2" placeholder="Confirm your Password">
+<input type="password" id="tupassword2" name="tupassword2" placeholder="Confirm your Password">
 
     <input type="submit" name="reg" value="Click to Register">
     {% if messages %}

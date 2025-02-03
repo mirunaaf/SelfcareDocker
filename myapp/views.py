@@ -50,7 +50,7 @@ def loginuser(request):
         text_password = request.POST.get("tupassword")
 
         try:
-            user = User.objects.get(username=text_uname)  # Look up user by email
+            user = User.objects.get(username=text_uname)  # Look up user by username
             if text_password == user.password:  # Compare passwords directly (⚠)
                 request.session["user_id"] = user.id
                 print(user.id)         # Manually set session
@@ -73,3 +73,4 @@ def logoutuser(request):
         del request.session["user_id"]  # Remove user from session
     messages.success(request, "You have been logged out.")
     return redirect("index")  # Redirect to login page after logout
+

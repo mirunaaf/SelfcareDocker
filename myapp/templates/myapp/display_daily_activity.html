@@ -71,6 +71,7 @@
                     <td> {{ activity.meditation }} </td>
                     <td>
                         <a href="{% url 'delete_activity' activity.id %}" class="btn btn-danger" >Delete</a>
+                        <a href="{% url 'update_activity' activity.id %}" class="btn btn-warning" >Update</a>
                     </td>
                 </tr>
                 {% endfor %}

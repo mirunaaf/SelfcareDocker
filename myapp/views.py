@@ -121,13 +121,26 @@ def daily_activity_delete(request,id):
         messages.error(request, "You need to log in first.")
         return redirect("login")  # Redirect to login page
 
-    # Fetch the logged-in user
-    # user_id = request.session["user_id"]
-    # user = User.objects.get(id=user_id)
     activity = DailyActivity.objects.get(id=id)
-    print(id)
     activity.delete()
     messages.success(request, "Activity was deleted successfully!")
     return redirect('display_activity')
 
+
+#Update View
+def daily_activity_update(request, id):
+
+    if "user_id" not in request.session:
+        messages.error(request, "You need to log in first.")
+        return redirect("login")  # Redirect to login page
+
+
+    activity = DailyActivity.objects.get(id=id)
+    form = DailyActivityForm(instance=activity)
+    if request.method == "POST":
+        form = DailyActivityForm(request.POST,instance=activity)
+        if form.is_valid():
+            form.save()
+            return redirect('display_activity')
+    return render(request, 'myapp/daily_activity.html', {'form':form})
 

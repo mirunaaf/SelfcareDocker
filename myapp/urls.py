@@ -30,5 +30,6 @@ urlpatterns = [
     path('daily-activity/', views.daily_activity_create, name='daily_activity'),
     path('display-activity/', views.daily_activity_list_view, name='display_activity'),
     path('delete-activity/<int:id>', views.daily_activity_delete, name='delete_activity'),
+    path('update-activity/<int:id>', views.daily_activity_update, name='update_activity'),
 
 ]

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Activity</title>
+
+</head>
+<body>
+<header>
+<h1>Self-Care Tracker</h1>
+<nav>
+    <a href="{% url 'menu' %}">Menu</a>
+    <a href="{% url 'display_activity' %}">View activities</a>
+    <a href="{% url 'logoutuser' %}">Logout</a>
+
+</nav>
+</header>
+
+    <main>
+<h2>Daily Activity</h2>
+<form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Automatically renders form fields -->
+<button type="submit">Save Activity</button>
+</form>
+
+        {% if messages %}
+<ul>
+                {% for message in messages %}
+<li>{{ message }}</li>
+                {% endfor %}
+</ul>
+        {% endif %}
+</main>
+
+</body>
+</html>

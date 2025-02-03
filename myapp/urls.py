@@ -26,6 +26,9 @@ urlpatterns = [
     path('insertuser', views.insertuser, name='insertuser'),
     path('login', views.login, name='login'),
     path('loginuser', views.loginuser, name='loginuser'),
-    path('logout/', views.logoutuser, name='logoutuser')
+    path('logout/', views.logoutuser, name='logoutuser'),
+    path('daily-activity/', views.daily_activity_create, name='daily_activity'),
+    path('display-activity/', views.daily_activity_list_view, name='display_activity'),
+    path('delete-activity/<int:id>', views.daily_activity_delete, name='delete_activity'),
 
 ]

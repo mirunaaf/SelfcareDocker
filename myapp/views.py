@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import User, DailyActivity
 from django.contrib import messages
 from .forms import DailyActivityForm
@@ -75,16 +75,29 @@ def logoutuser(request):
     messages.success(request, "You have been logged out.")
     return redirect("index")  # Redirect to login page after logout
 
+def get_logged_in_user(request):
+    """Returns the logged-in user or redirects to login if not authenticated."""
+    user_id = request.session.get("user_id")
+    if not user_id:
+        messages.error(request, "You need to log in first.")
+        return None, redirect("login")  # Return None and redirect response
+
+    user = get_object_or_404(User, id=user_id)  # Get user or return 404
+    return user, None
 
 def daily_activity_create(request):
-    # Check if user is logged in
-    if "user_id" not in request.session:
-        messages.error(request, "You need to log in first.")
-        return redirect("login")  # Redirect to login if not logged in
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
 
-    # Fetch the logged-in user
-    user_id = request.session["user_id"]
-    user = User.objects.get(id=user_id)
+    #Check if user is logged in
+    # if "user_id" not in request.session:
+    #     messages.error(request, "You need to log in first.")
+    #     return redirect("login")  # Redirect to login if not logged in
+    #
+    # # Fetch the logged-in user
+    # user_id = request.session["user_id"]
+    # user = User.objects.get(id=user_id)
 
     if request.method == "POST":
         form = DailyActivityForm(request.POST)
@@ -93,21 +106,25 @@ def daily_activity_create(request):
             activity.user = user  # Link to the logged-in user manually
             activity.save()
             messages.success(request, "Daily activity recorded successfully!")
-            return redirect("display_activity")  # Redirect to the menu page
+            return redirect("display_activity")  # Redirect to the display_activity page
     else:
         form = DailyActivityForm()
     return render(request, 'myapp/daily_activity.html', {'form': form})
 
 
 def daily_activity_list_view(request):
-    # Check if user is logged in
-    if "user_id" not in request.session:
-        messages.error(request, "You need to log in first.")
-        return redirect("login")  # Redirect to login page
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
 
-    # Fetch the logged-in user
-    user_id = request.session["user_id"]
-    user = User.objects.get(id=user_id)
+    # # Check if user is logged in
+    # if "user_id" not in request.session:
+    #     messages.error(request, "You need to log in first.")
+    #     return redirect("login")  # Redirect to login page
+    #
+    # # Fetch the logged-in user
+    # user_id = request.session["user_id"]
+    # user = User.objects.get(id=user_id)
 
     # Retrieve all daily activities for this user
     activities = DailyActivity.objects.filter(user=user).order_by('-date')  # Show newest first
@@ -115,11 +132,13 @@ def daily_activity_list_view(request):
     return render(request, 'myapp/display_daily_activity.html', {'activity_list': activities})
 
 def daily_activity_delete(request,id):
-
-    # Check if user is logged in
-    if "user_id" not in request.session:
-        messages.error(request, "You need to log in first.")
-        return redirect("login")  # Redirect to login page
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
+    # # Check if user is logged in
+    # if "user_id" not in request.session:
+    #     messages.error(request, "You need to log in first.")
+    #     return redirect("login")  # Redirect to login page
 
     activity = DailyActivity.objects.get(id=id)
     activity.delete()
@@ -129,10 +148,13 @@ def daily_activity_delete(request,id):
 
 #Update View
 def daily_activity_update(request, id):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
 
-    if "user_id" not in request.session:
-        messages.error(request, "You need to log in first.")
-        return redirect("login")  # Redirect to login page
+    # if "user_id" not in request.session:
+    #     messages.error(request, "You need to log in first.")
+    #     return redirect("login")  # Redirect to login page
 
 
     activity = DailyActivity.objects.get(id=id)

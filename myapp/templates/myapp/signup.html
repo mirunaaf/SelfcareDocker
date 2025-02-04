@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign up</title>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -42,7 +42,7 @@
         input[type="submit"]:hover {
             background-color: #218838;
         }
-</style>
+    </style>
 </head>
 <body>
 
@@ -51,27 +51,26 @@
 
 
     <label for="tuname">Username:</label>
-<input type="text" id="tuname" name="tuname" placeholder="Enter your Name">
+    <input type="text" id="tuname" name="tuname" placeholder="Enter your Name">
 
     <label for="tuemail">Email:</label>
-<input type="email" id="tuemail" name="tuemail" placeholder="Enter your Email">
+    <input type="email" id="tuemail" name="tuemail" placeholder="Enter your Email">
 
     <label for="tupassword">Password:</label>
-<input type="password" id="tupassword" name="tupassword" placeholder="Enter your Password">
+    <input type="password" id="tupassword" name="tupassword" placeholder="Enter your Password">
 
     <label for="tupassword2">Password2:</label>
-<input type="password" id="tupassword2" name="tupassword2" placeholder="Confirm your Password">
+    <input type="password" id="tupassword2" name="tupassword2" placeholder="Confirm your Password">
 
     <input type="submit" name="reg" value="Click to Register">
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
+        <li class="{{ message.tags }}">{{ message }}</li>
         {% endfor %}
     </ul>
-{% endif %}
+    {% endif %}
 </form>
-
 
 
 </body>

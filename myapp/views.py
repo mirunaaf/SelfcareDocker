@@ -274,3 +274,6 @@ def record_update(request, id):
             form.save()
             return redirect('display_records')
     return render(request, 'myapp/add_journal_record.html', {'form':form})
+
+def tips_tricks(request):
+    return render(request, "myapp/tips-tricks.html", {})

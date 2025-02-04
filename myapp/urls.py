@@ -39,5 +39,6 @@ urlpatterns = [
     path('display-records/', views.records_list_view, name='display_records'),
     path('update-record/<int:id>', views.record_update, name='update_record'),
     path('delete-record/<int:id>', views.record_delete, name='delete_record'),
+    path('tips-tricks', views.tips_tricks, name='tips_tricks'),
 
 ]

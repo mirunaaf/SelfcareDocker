@@ -31,5 +31,9 @@ urlpatterns = [
     path('display-activity/', views.daily_activity_list_view, name='display_activity'),
     path('delete-activity/<int:id>', views.daily_activity_delete, name='delete_activity'),
     path('update-activity/<int:id>', views.daily_activity_update, name='update_activity'),
+    path('add-goal/', views.goal_create, name='add_goal'),
+    path('display-goals/', views.goals_list_view, name='display_goals'),
+    path('update-goal/<int:id>', views.goal_update, name='update_goal'),
+    path('delete-goal/<int:id>', views.goal_delete, name='delete_goal'),
 
 ]

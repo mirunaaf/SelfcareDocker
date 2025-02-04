@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import User, DailyActivity
+from .models import User, DailyActivity, PersonalGoals
 from django.contrib import messages
-from .forms import DailyActivityForm
+from .forms import DailyActivityForm, PersonalGoalsForm
 
 
 
@@ -166,3 +166,56 @@ def daily_activity_update(request, id):
             return redirect('display_activity')
     return render(request, 'myapp/daily_activity.html', {'form':form})
 
+
+def goal_create(request):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
+
+    if request.method == "POST":
+        form = PersonalGoalsForm(request.POST)
+        if form.is_valid():
+            goal = form.save(commit=False)
+            goal.user = user  # Link to the logged-in user manually
+            goal.save()
+            messages.success(request, "Goal recorded successfully!")
+            return redirect("display_goals")
+    else:
+        form = PersonalGoalsForm()
+    return render(request, 'myapp/add_goal.html', {'form': form})
+
+
+def goals_list_view(request):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response
+
+    goals = PersonalGoals.objects.filter(user=user).order_by('-target_date')  # Show newest first
+
+    return render(request, 'myapp/display_goals.html', {'goals_list': goals})
+
+def goal_delete(request,id):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
+
+    goal = PersonalGoals.objects.get(id=id)
+    goal.delete()
+    messages.success(request, "Goal was deleted successfully!")
+    return redirect('display_goals')
+
+
+#Update View
+def goal_update(request, id):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
+
+    goal = PersonalGoals.objects.get(id=id)
+    form = PersonalGoalsForm(instance=goal)
+    if request.method == "POST":
+        form = PersonalGoalsForm(request.POST,instance=goal)
+        if form.is_valid():
+            form.save()
+            return redirect('display_goals')
+    return render(request, 'myapp/add_goal.html', {'form':form})

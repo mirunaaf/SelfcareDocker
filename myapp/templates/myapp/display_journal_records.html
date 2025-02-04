@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retrieve Records</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style> body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        td {
+            background-color: #ffffff;
+        }
+        .actions {
+            cursor: pointer;
+            color: #007bff;
+        }
+        .actions:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+</style>
+</head>
+<header>
+<h1>Self-Care Tracker</h1>
+<nav>
+    <a href="{% url 'menu' %}">Menu</a>
+    <a href="{% url 'logoutuser' %}">Logout</a>
+
+</nav>
+</header>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">User Records</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Your Thoughts</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%  for record in records_list %}
+                <tr>
+                    <td> {{ record.entry_date }} </td>
+                    <td> {{ record.entry_text}} </td>
+                    <td>
+                        <a href="{% url 'delete_record' record.id %}" class="btn btn-danger" >Delete</a>
+                        <a href="{% url 'update_record' record.id %}" class="btn btn-warning" >Update</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

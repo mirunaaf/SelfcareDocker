@@ -35,5 +35,9 @@ urlpatterns = [
     path('display-goals/', views.goals_list_view, name='display_goals'),
     path('update-goal/<int:id>', views.goal_update, name='update_goal'),
     path('delete-goal/<int:id>', views.goal_delete, name='delete_goal'),
+    path('add-record/', views.journal_record_create, name='add_record'),
+    path('display-records/', views.records_list_view, name='display_records'),
+    path('update-record/<int:id>', views.record_update, name='update_record'),
+    path('delete-record/<int:id>', views.record_delete, name='delete_record'),
 
 ]

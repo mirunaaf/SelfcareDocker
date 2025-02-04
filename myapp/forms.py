@@ -1,5 +1,5 @@
 from django import forms
-from .models import DailyActivity, PersonalGoals
+from .models import DailyActivity, PersonalGoals, Journal
 
 class DailyActivityForm(forms.ModelForm):
     class Meta:
@@ -34,4 +34,18 @@ class PersonalGoalsForm(forms.ModelForm):
             'goal_title': forms.TextInput(attrs={'class':'form-control'}),
             'goal_description': forms.TextInput(attrs={'class':'form-control'}),
             'status': forms.Select(attrs={'class':'form-control'}),
+        }
+
+
+class JournalForm(forms.ModelForm):
+    class Meta:
+        model = Journal
+        fields = ['entry_date', 'entry_text']
+        labels = {
+            'entry_date': 'Date',
+            'entry_text': 'Your Thoughts',
+        }
+        widgets = {
+            'entry_date': forms.DateInput(attrs={'type': 'date', 'class':'form-control'}),
+            'entry_text': forms.TextInput(attrs={'class':'form-control'}),
         }

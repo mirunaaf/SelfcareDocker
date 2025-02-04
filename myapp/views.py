@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import User, DailyActivity, PersonalGoals
+from .models import User, DailyActivity, PersonalGoals, Journal
 from django.contrib import messages
-from .forms import DailyActivityForm, PersonalGoalsForm
+from .forms import DailyActivityForm, PersonalGoalsForm, JournalForm
 
 
 
@@ -219,3 +219,58 @@ def goal_update(request, id):
             form.save()
             return redirect('display_goals')
     return render(request, 'myapp/add_goal.html', {'form':form})
+
+
+def journal_record_create(request):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
+
+    if request.method == "POST":
+        form = JournalForm(request.POST)
+        if form.is_valid():
+            record = form.save(commit=False)
+            record.user = user  # Link to the logged-in user manually
+            record.save()
+            messages.success(request, "Record added successfully!")
+            return redirect("display_records")
+    else:
+        form = JournalForm()
+    return render(request, 'myapp/add_journal_record.html', {'form': form})
+
+
+def records_list_view(request):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response
+
+    records = Journal.objects.filter(user=user).order_by('-entry_date')  # Show newest first
+
+    return render(request, 'myapp/display_journal_records.html', {'records_list': records})
+
+
+def record_delete(request,id):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
+
+    record = Journal.objects.get(id=id)
+    record.delete()
+    messages.success(request, "Record deleted successfully!")
+    return redirect('display_records')
+
+
+#Update View
+def record_update(request, id):
+    user, redirect_response = get_logged_in_user(request)
+    if redirect_response:
+        return redirect_response  # Redirect if user is not logged in
+
+    record = Journal.objects.get(id=id)
+    form = JournalForm(instance=record)
+    if request.method == "POST":
+        form = JournalForm(request.POST,instance=record)
+        if form.is_valid():
+            form.save()
+            return redirect('display_records')
+    return render(request, 'myapp/add_journal_record.html', {'form':form})

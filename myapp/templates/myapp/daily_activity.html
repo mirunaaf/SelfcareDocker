@@ -1,28 +1,32 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Activity</title>
-
+    <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<header>
-    <h1>Self-Care Tracker</h1>
-    <nav>
-        <a href="{% url 'menu' %}">Menu</a>
-        <a href="{% url 'display_activity' %}">View activities</a>
-        <a href="{% url 'logoutuser' %}">Logout</a>
-
-    </nav>
-</header>
-
-<main>
-    <h2>Daily Activity</h2>
+<div class="container1">
+<nav class="navbar">
+    <div class="navbar-left">
+        <a class="navbar-item" href="{% url 'menu' %}">
+            <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Menu Icon" style="width: 20px; height: 20px; margin-right: 5px;"> Menu
+        </a>
+        <a class="navbar-item" href="{% url 'display_activity' %}">View-Activities</a>
+    </div>
+    <form>
+        <button type="submit" class="logout-btn" formaction="{% url 'logoutuser' %}">Logout</button>
+    </form>
+</nav>
+    <h2 class="mg-btn-top">Daily Activity</h2>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}  <!-- Automatically renders form fields -->
-        <button type="submit">Save Activity</button>
+        <button class="btn btn-success" type="submit">Save Activity</button>
     </form>
 
     {% if messages %}
@@ -32,7 +36,7 @@
         {% endfor %}
     </ul>
     {% endif %}
-</main>
+</div>
 
 </body>
 </html>

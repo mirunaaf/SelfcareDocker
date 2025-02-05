@@ -12,17 +12,17 @@ class DailyActivityForm(forms.ModelForm):
             'meditation': 'Meditation',
         }
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date'}),
-            'water_intake': forms.NumberInput(attrs={'placeholder': 'Liters of water', 'min': '0'}),
-            'sleep_hours': forms.NumberInput(attrs={'placeholder': 'Hours of sleep', 'min': '0'}),
-            'meditation': forms.NumberInput(attrs={'placeholder': 'Minutes of meditation', 'min': '0'}),
+            'date': forms.DateInput(attrs={'type': 'date', 'class':'form-control'}),
+            'water_intake': forms.NumberInput(attrs={'placeholder': 'Liters of water', 'min': '0', 'class':'form-control'}),
+            'sleep_hours': forms.NumberInput(attrs={'placeholder': 'Hours of sleep', 'min': '0', 'class':'form-control'}),
+            'meditation': forms.NumberInput(attrs={'placeholder': 'Minutes of meditation', 'min': '0', 'class':'form-control'}),
         }
 
 
 class PersonalGoalsForm(forms.ModelForm):
     class Meta:
         model = PersonalGoals
-        fields = ['goal_title', 'goal_description', 'target_date','status']
+        fields = ['goal_title', 'target_date','status', 'goal_description']
         labels = {
             'goal_title': 'Goal',
             'goal_description': 'Description',
@@ -32,7 +32,7 @@ class PersonalGoalsForm(forms.ModelForm):
         widgets = {
             'target_date': forms.DateInput(attrs={'type': 'date', 'class':'form-control'}),
             'goal_title': forms.TextInput(attrs={'class':'form-control'}),
-            'goal_description': forms.TextInput(attrs={'class':'form-control'}),
+            'goal_description': forms.Textarea(attrs={'class':'form-control'}),
             'status': forms.Select(attrs={'class':'form-control'}),
         }
 
@@ -47,5 +47,5 @@ class JournalForm(forms.ModelForm):
         }
         widgets = {
             'entry_date': forms.DateInput(attrs={'type': 'date', 'class':'form-control'}),
-            'entry_text': forms.TextInput(attrs={'class':'form-control'}),
+            'entry_text': forms.Textarea(attrs={'class':'form-control'}),
         }

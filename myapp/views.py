@@ -4,8 +4,6 @@ from django.contrib import messages
 from .forms import DailyActivityForm, PersonalGoalsForm, JournalForm
 
 
-
-# Create your views here.
 def index(request):
     return render(request, "myapp/index.html", {})
 
@@ -51,10 +49,9 @@ def loginuser(request):
         text_password = request.POST.get("tupassword")
 
         try:
-            user = User.objects.get(username=text_uname)  # Look up user by username
-            if text_password == user.password:  # Compare passwords directly (⚠)
+            user = User.objects.get(username=text_uname)
+            if text_password == user.password:
                 request.session["user_id"] = user.id
-                print(user.id)         # Manually set session
                 messages.success(request, "Login successful!")
                 return redirect("menu")
             else:
@@ -70,43 +67,33 @@ def logout(request):
 
 
 def logoutuser(request):
-    if "user_id" in request.session:  # Check if the user is logged in
-        del request.session["user_id"]  # Remove user from session
+    if "user_id" in request.session:
+        del request.session["user_id"]
     messages.success(request, "You have been logged out.")
-    return redirect("index")  # Redirect to login page after logout
+    return redirect("index")
 
 def get_logged_in_user(request):
-    """Returns the logged-in user or redirects to login if not authenticated."""
     user_id = request.session.get("user_id")
     if not user_id:
         messages.error(request, "You need to log in first.")
-        return None, redirect("login")  # Return None and redirect response
+        return None, redirect("login")
 
-    user = get_object_or_404(User, id=user_id)  # Get user or return 404
+    user = get_object_or_404(User, id=user_id)
     return user, None
 
 def daily_activity_create(request):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
-
-    #Check if user is logged in
-    # if "user_id" not in request.session:
-    #     messages.error(request, "You need to log in first.")
-    #     return redirect("login")  # Redirect to login if not logged in
-    #
-    # # Fetch the logged-in user
-    # user_id = request.session["user_id"]
-    # user = User.objects.get(id=user_id)
+        return redirect_response
 
     if request.method == "POST":
         form = DailyActivityForm(request.POST)
         if form.is_valid():
             activity = form.save(commit=False)
-            activity.user = user  # Link to the logged-in user manually
+            activity.user = user
             activity.save()
             messages.success(request, "Daily activity recorded successfully!")
-            return redirect("display_activity")  # Redirect to the display_activity page
+            return redirect("display_activity")
     else:
         form = DailyActivityForm()
     return render(request, 'myapp/daily_activity.html', {'form': form})
@@ -115,18 +102,8 @@ def daily_activity_create(request):
 def daily_activity_list_view(request):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
+        return redirect_response
 
-    # # Check if user is logged in
-    # if "user_id" not in request.session:
-    #     messages.error(request, "You need to log in first.")
-    #     return redirect("login")  # Redirect to login page
-    #
-    # # Fetch the logged-in user
-    # user_id = request.session["user_id"]
-    # user = User.objects.get(id=user_id)
-
-    # Retrieve all daily activities for this user
     activities = DailyActivity.objects.filter(user=user).order_by('-date')  # Show newest first
 
     return render(request, 'myapp/display_daily_activity.html', {'activity_list': activities})
@@ -134,11 +111,7 @@ def daily_activity_list_view(request):
 def daily_activity_delete(request,id):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
-    # # Check if user is logged in
-    # if "user_id" not in request.session:
-    #     messages.error(request, "You need to log in first.")
-    #     return redirect("login")  # Redirect to login page
+        return redirect_response
 
     activity = DailyActivity.objects.get(id=id)
     activity.delete()
@@ -146,16 +119,10 @@ def daily_activity_delete(request,id):
     return redirect('display_activity')
 
 
-#Update View
 def daily_activity_update(request, id):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
-
-    # if "user_id" not in request.session:
-    #     messages.error(request, "You need to log in first.")
-    #     return redirect("login")  # Redirect to login page
-
+        return redirect_response
 
     activity = DailyActivity.objects.get(id=id)
     form = DailyActivityForm(instance=activity)
@@ -170,13 +137,13 @@ def daily_activity_update(request, id):
 def goal_create(request):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
+        return redirect_response
 
     if request.method == "POST":
         form = PersonalGoalsForm(request.POST)
         if form.is_valid():
             goal = form.save(commit=False)
-            goal.user = user  # Link to the logged-in user manually
+            goal.user = user
             goal.save()
             messages.success(request, "Goal recorded successfully!")
             return redirect("display_goals")
@@ -190,14 +157,14 @@ def goals_list_view(request):
     if redirect_response:
         return redirect_response
 
-    goals = PersonalGoals.objects.filter(user=user).order_by('-target_date')  # Show newest first
+    goals = PersonalGoals.objects.filter(user=user).order_by('-target_date')
 
     return render(request, 'myapp/display_goals.html', {'goals_list': goals})
 
 def goal_delete(request,id):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
+        return redirect_response
 
     goal = PersonalGoals.objects.get(id=id)
     goal.delete()
@@ -205,11 +172,10 @@ def goal_delete(request,id):
     return redirect('display_goals')
 
 
-#Update View
 def goal_update(request, id):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
+        return redirect_response
 
     goal = PersonalGoals.objects.get(id=id)
     form = PersonalGoalsForm(instance=goal)
@@ -224,13 +190,13 @@ def goal_update(request, id):
 def journal_record_create(request):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
+        return redirect_response
 
     if request.method == "POST":
         form = JournalForm(request.POST)
         if form.is_valid():
             record = form.save(commit=False)
-            record.user = user  # Link to the logged-in user manually
+            record.user = user
             record.save()
             messages.success(request, "Record added successfully!")
             return redirect("display_records")
@@ -244,7 +210,7 @@ def records_list_view(request):
     if redirect_response:
         return redirect_response
 
-    records = Journal.objects.filter(user=user).order_by('-entry_date')  # Show newest first
+    records = Journal.objects.filter(user=user).order_by('-entry_date')
 
     return render(request, 'myapp/display_journal_records.html', {'records_list': records})
 
@@ -252,7 +218,7 @@ def records_list_view(request):
 def record_delete(request,id):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
+        return redirect_response
 
     record = Journal.objects.get(id=id)
     record.delete()
@@ -260,11 +226,10 @@ def record_delete(request,id):
     return redirect('display_records')
 
 
-#Update View
 def record_update(request, id):
     user, redirect_response = get_logged_in_user(request)
     if redirect_response:
-        return redirect_response  # Redirect if user is not logged in
+        return redirect_response
 
     record = Journal.objects.get(id=id)
     form = JournalForm(instance=record)

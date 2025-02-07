@@ -43,7 +43,7 @@ class JournalForm(forms.ModelForm):
         fields = ['entry_date', 'entry_text']
         labels = {
             'entry_date': 'Date',
-            'entry_text': 'Your Thoughts',
+            'entry_text': 'What is on your mind?',
         }
         widgets = {
             'entry_date': forms.DateInput(attrs={'type': 'date', 'class':'form-control'}),

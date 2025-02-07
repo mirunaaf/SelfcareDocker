@@ -40,8 +40,10 @@
             <td> {{ goal.target_date }}</td>
             <td> {{ goal.status }}</td>
             <td>
-                <a href="{% url 'update_goal' goal.id %}" class="btn btn-warning">Update</a>
-                <a href="{% url 'delete_goal' goal.id %}" class="btn btn-danger">Delete</a>
+                 <div style="display: flex; justify-content: center; gap: 10px;">
+                     <a href="{% url 'update_goal' goal.id %}" class="btn btn-warning">Update</a>
+                     <a href="{% url 'delete_goal' goal.id %}" class="btn btn-danger">Delete</a>
+                 </div>
             </td>
         </tr>
         {% endfor %}
@@ -50,7 +52,7 @@
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
+        <p class="{{ message.tags }}">{{ message }}</p>
         {% endfor %}
     </ul>
     {% endif %}

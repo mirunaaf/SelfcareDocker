@@ -40,8 +40,10 @@
             <td> {{ activity.sleep_hours }}</td>
             <td> {{ activity.meditation }}</td>
             <td>
-                <a href="{% url 'update_activity' activity.id %}" class="btn btn-warning">Update</a>
-                <a href="{% url 'delete_activity' activity.id %}" class="btn btn-danger">Delete</a>
+                <div style="display: flex; justify-content: center; gap: 10px;">
+                    <a href="{% url 'update_activity' activity.id %}" class="btn btn-warning">Update</a>
+                    <a href="{% url 'delete_activity' activity.id %}" class="btn btn-danger">Delete</a>
+                </div>
             </td>
         </tr>
         {% endfor %}
@@ -50,7 +52,7 @@
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
+        <p class="{{ message.tags }}">{{ message }}</p>
         {% endfor %}
     </ul>
     {% endif %}

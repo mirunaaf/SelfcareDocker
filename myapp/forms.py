@@ -32,7 +32,7 @@ class PersonalGoalsForm(forms.ModelForm):
         widgets = {
             'target_date': forms.DateInput(attrs={'type': 'date', 'class':'form-control', 'placeholder': ''}),
             'goal_title': forms.TextInput(attrs={'class':'form-control', 'placeholder': ''}),
-            'goal_description': forms.Textarea(attrs={'class':'form-control', 'placeholder': ''}),
+            'goal_description': forms.Textarea(attrs={'class':'form-control', 'placeholder': '', 'rows': 5}),
             'status': forms.Select(attrs={'class':'form-control', 'placeholder': ''}),
         }
 

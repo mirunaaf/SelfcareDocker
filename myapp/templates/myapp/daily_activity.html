@@ -16,17 +16,17 @@
         <a class="navbar-item" href="{% url 'menu' %}">
             <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Menu Icon" style="width: 20px; height: 20px; margin-right: 5px;"> Menu
         </a>
-        <a class="navbar-item" href="{% url 'display_activity' %}">View-Activities</a>
+        <a class="navbar-item" href="{% url 'display_activity' %}">Activities</a>
     </div>
     <form>
         <button type="submit" class="logout-btn" formaction="{% url 'logoutuser' %}">Logout</button>
     </form>
 </nav>
     <h2 class="mg-btn-top">Daily Activity</h2>
-    <form method="POST">
+    <form class="form1" style="width:100%" method="POST">
         {% csrf_token %}
         {{ form.as_p }}  <!-- Automatically renders form fields -->
-        <button class="btn btn-success" type="submit">Save Activity</button>
+        <button class="btn btn-warning" type="submit">Save Activity</button>
     </form>
 
     {% if messages %}

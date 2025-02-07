@@ -17,7 +17,7 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Menu Icon"
                      style="width: 20px; height: 20px; margin-right: 5px;"> Menu
             </a>
-            <a class="navbar-item" href="{% url 'display_goals' %}">View goals</a>
+            <a class="navbar-item" href="{% url 'display_goals' %}">Goals</a>
         </div>
         <form>
             <button type="submit" class="logout-btn" formaction="{% url 'logoutuser' %}">Logout</button>
@@ -25,10 +25,10 @@
     </nav>
     <h2 class="mg-btn-top">Your Goals</h2>
 
-    <form method="POST">
+    <form class="form1" style="width:100%" method="POST">
         {% csrf_token %}
         {{ form.as_p }}  <!-- Automatically renders form fields -->
-        <button class="btn btn-success" type="submit">Save Goal</button>
+        <button class="btn btn-warning" type="submit">Save Goal</button>
     </form>
 
     {% if messages %}

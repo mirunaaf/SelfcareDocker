@@ -37,6 +37,8 @@ def insertuser(request):
     ob = User(username=text_uname, email=text_email, password=text_password)
     ob.save()
 
+    request.session["user_id"] = ob.id
+
     return redirect("/menu")
 
 

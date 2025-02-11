@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import DailyActivityForm, PersonalGoalsForm, JournalForm
 
 
+
 def index(request):
     return render(request, "myapp/index.html", {})
 

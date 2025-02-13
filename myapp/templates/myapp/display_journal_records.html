@@ -34,7 +34,7 @@
         {% for record in records_list %}
         <tr>
             <td> {{ record.entry_date }}</td>
-            <td> {{ record.entry_text}}</td>
+            <td style="word-break: break-all"> {{ record.entry_text}}</td>
             <td>
                <div style="display: flex; justify-content: center; gap: 10px;">
                     <a href="{% url 'update_record' record.id %}" class="btn btn-warning">Update</a>

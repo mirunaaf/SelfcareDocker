@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z*!7xh!v6zmk%tyfv#_f!9d(-2+&*m*onh$@!n%&6-%k=e6)r@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -85,10 +85,10 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'selfcare2',
+        'NAME': 'myapp',
         'USER': 'root',
         'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }

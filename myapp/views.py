@@ -10,7 +10,15 @@ def index(request):
 
 
 def menu(request):
-    return render(request, "myapp/menu.html", {})
+    user_name = None  # Default value
+
+    # Check if the user is logged in
+    if "user_id" in request.session:
+        user = User.objects.get(id=request.session["user_id"])
+        user_name = user.username  # Get the logged-in user's name
+
+    return render(request, "myapp/menu.html", {"user_name": user_name})
+    # return render(request, "myapp/menu.html", {})
 
 
 def signup(request):
@@ -55,7 +63,6 @@ def loginuser(request):
             user = User.objects.get(username=text_uname)
             if text_password == user.password:
                 request.session["user_id"] = user.id
-                messages.success(request, "Login successful!")
                 return redirect("menu")
             else:
                 messages.error(request, "Invalid username or password.")
@@ -72,7 +79,6 @@ def logout(request):
 def logoutuser(request):
     if "user_id" in request.session:
         del request.session["user_id"]
-    messages.success(request, "You have been logged out.")
     return redirect("index")
 
 def get_logged_in_user(request):

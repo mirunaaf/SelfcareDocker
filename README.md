@@ -39,6 +39,8 @@ python manage.py runserver
 
 6. Access the application in your web browser at [http://localhost:8000](url)
 
+
+
 # Features #
 ### User Authentication and Registration: ###
   * Users can create accounts and log in to track their habits, set goals and keep a journal.

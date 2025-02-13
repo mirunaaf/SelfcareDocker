@@ -2,15 +2,15 @@
 
 Django Self-care Tracker is a web application designed to help users track their habits, set goals, and keep a journal.
 This README provides an overview of the project's features, installation instructions, usage guidelines.
-
-# Installation #
+---
+# Installation locally #
 
 To install and run Django Habit Tracker locally, follow these steps:
 
-1. clone the repository
+1. Clone the repository
 ```
-git clone https://github.com/Zu18/SelfcareNew.git
-cd SelfcareNew
+git clone https://github.com/mirunaaf/SelfcareDocker.git
+cd SelfcareDocker
 ```
 
 2. Install dependencies:
@@ -38,9 +38,64 @@ python manage.py runserver
 ```
 
 6. Access the application in your web browser at [http://localhost:8000](url)
+---
+# Running the app using Docker #
 
 
+This project sets up a Django application with a MySQL database using Docker and Docker Compose.
 
+**Prerequisites**
+
+Ensure you have the following installed:
+* Docker Desktop
+
+## Setup Instructions ##
+
+1. Clone the repository
+```
+git clone https://github.com/mirunaaf/SelfcareDocker.git
+cd SelfcareDocker
+```
+2. Build and Start Containers
+```
+docker-compose up
+```
+This will:
+* Build the Django application container.
+* Start the MySQL database container.
+* Apply Django migrations and run the server.
+
+## Accessing the MySQL Database
+You can connect to the MySQL database running inside Docker from your local machine:
+1. Using MySQL Client
+```
+mysql -h localhost -P 3308 -u root -p
+```
+2. Using Docker Exec
+If you want to connect directly inside the MySQL container:
+```
+docker exec -it selfcarenew-db-1 mysql -u root -p
+```
+
+## Stopping the Containers
+
+To stop and remove the containers:
+``` 
+docker-compose down 
+```
+To stop only the running containers without removing them:
+```
+docker-compose stop
+```
+## Making Migrations
+If you make changes to your Django models, apply migrations using:
+```
+docker-compose exec web python manage.py makemigrations
+```
+```
+docker-compose exec web python manage.py migrate
+```
+___
 # Features #
 ### User Authentication and Registration: ###
   * Users can create accounts and log in to track their habits, set goals and keep a journal.
@@ -63,7 +118,7 @@ python manage.py runserver
   * A dedicated page for improving lifestyle and useful resources.
   * Users will be able to access pages of helpful content and also applications for tracking workouts, meditation and water intake.
 
-
+___
 # Usage #
 Once the application is running, you can perform the following actions: 
 

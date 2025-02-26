@@ -1,7 +1,7 @@
 #!/bin/bash
 
 EC2_USER="ec2-user"
-EC2_IP="your-ec2-ip"
+EC2_IP="18.169.247.44"
 
 echo "Stopping existing containers..."
 ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_IP "docker-compose down"

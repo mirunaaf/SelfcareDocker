@@ -12,14 +12,12 @@
 
     <div class="container">
         <nav class="navbar">
-        <div class="navbar-left">
-
-            {% if user_name %}
-                <p class="welcome-text">Welcome, {{ user_name }}!</p>
-            {% else %}
-                <p><a class="welcome-text" href="{% url 'index' %}" >Sign Up/ Login</a></p>
-            {% endif %}
-
+            <div class="navbar-left">
+                {% if user_name %}
+                    <p class="welcome-text">Welcome, {{ user_name }}!</p>
+                {% else %}
+                    <p><a class="welcome-text" href="{% url 'index' %}" >Sign Up/ Login</a></p>
+                {% endif %}
             </div>
             <div class="navbar-right">
                 <form action="{% url 'logoutuser' %}" method="POST">

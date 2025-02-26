@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/mirunaaf/SelfcareDocker.git'
+            }
+        }
+
+        stage('Deploy to Amazon Linux EC2') {
+            steps {
+                sh 'bash jenkins/deploy_django.sh'
+            }
+        }
+    }
+}

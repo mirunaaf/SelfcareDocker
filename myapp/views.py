@@ -10,15 +10,14 @@ def index(request):
 
 
 def menu(request):
-    user_name = None  # Default value
+    user_name = None
 
-    # Check if the user is logged in
     if "user_id" in request.session:
         user = User.objects.get(id=request.session["user_id"])
-        user_name = user.username  # Get the logged-in user's name
+        user_name = user.username.capitalize()
 
     return render(request, "myapp/menu.html", {"user_name": user_name})
-    # return render(request, "myapp/menu.html", {})
+
 
 
 def signup(request):
@@ -71,9 +70,9 @@ def loginuser(request):
 
     return render(request, "myapp/login.html")
 
-
-def logout(request):
-    return render(request, "myapp/logout.html", {})
+#
+# def logout(request):
+#     return render(request, "myapp/logout.html", {})
 
 
 def logoutuser(request):

@@ -24,6 +24,7 @@ services:
     restart: always
     environment:
       - DOCKERIZED=true
+      - DOCKER_USERNAME=${DOCKER_USERNAME}
     volumes:
       - .:/app
     ports:

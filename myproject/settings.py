@@ -77,11 +77,11 @@ if os.environ.get("DOCKERIZED") == "true":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'myapp',
-            'USER': 'root',
-            'PASSWORD': 'password',
-            'HOST': 'db',
-            'PORT': '3306',
+            'NAME': os.getenv('MYSQL_DATABASE', 'myapp'),
+            'USER': os.getenv('MYSQL_USER', 'root'),
+            'PASSWORD': os.getenv('MYSQL_PASSWORD', 'password'),
+            'HOST': os.getenv('MYSQL_HOST', 'db'),  # În loc de 'localhost'
+            'PORT': os.getenv('MYSQL_PORT', '3306'),
         }
     }
 else:

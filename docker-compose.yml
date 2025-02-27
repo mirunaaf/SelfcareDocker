@@ -25,6 +25,11 @@ services:
     environment:
       - DOCKERIZED=true
       - DOCKER_USERNAME=${DOCKER_USERNAME}
+      - MYSQL_DATABASE=myapp
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
     volumes:
       - .:/app
     ports:

@@ -17,7 +17,9 @@ services:
       retries: 10
 
   web:
-    build: .
+    image: $DOCKER_USERNAME/django-app:latest  # Folosește imaginea din Docker Hub
+    container_name: django-app
+#    build: .
     command: sh -c "python3 manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
     restart: always
     environment:

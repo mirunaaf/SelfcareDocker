@@ -33,8 +33,8 @@
 
     - name: Deploy containers
       shell: |
-        echo "DOCKER_USERNAME from Ansible: {{ DOCKER_USERNAME }}"
-        export DOCKER_USERNAME="mirunaf"
+#        echo "DOCKER_USERNAME from Ansible: {{ DOCKER_USERNAME }}"
+#        export DOCKER_USERNAME="mirunaf"
         docker-compose down
         docker-compose pull
         docker-compose up -d

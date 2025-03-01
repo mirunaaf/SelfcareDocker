@@ -33,6 +33,7 @@
 
     - name: Deploy containers
       shell: |
+        export DOCKER_USERNAME={{ DOCKER_USERNAME }}
         docker-compose down
         docker-compose pull
         docker-compose up -d

@@ -24,7 +24,7 @@ services:
     restart: always
     environment:
       - DOCKERIZED=true
-      - DOCKER_USERNAME=${DOCKER_USERNAME}
+#      - DOCKER_USERNAME=${DOCKER_USERNAME}
       - MYSQL_DATABASE=myapp
       - MYSQL_USER=root
       - MYSQL_PASSWORD=password

@@ -40,6 +40,6 @@
         docker-compose up -d
       args:
         chdir: /home/ec2-user/
-      environment:
-        DOCKER_USERNAME: "mirunaf"
+#      environment:
+#        DOCKER_USERNAME: "mirunaf"
 

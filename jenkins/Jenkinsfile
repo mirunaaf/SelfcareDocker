@@ -10,9 +10,14 @@ pipeline {
             }
         }
 
-        stage('Deploy to Amazon Linux EC2') {
+//         stage('Deploy to Amazon Linux EC2') {
+//             steps {
+//                 sh 'bash jenkins/deploy_django.sh'
+//             }
+//         }
+        stage('Deploy with Ansible') {
             steps {
-                sh 'bash jenkins/deploy_django.sh'
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml'
             }
         }
     }

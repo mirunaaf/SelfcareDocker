@@ -1,0 +1,40 @@
+---
+- name: Configure EC2 and Deploy Django App
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update package lists
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64"
+        dest: "/usr/local/bin/docker-compose"
+        mode: 'u+x'
+
+    - name: Copy docker-compose.yml to server
+      copy:
+        src: ../docker-compose.yml
+        dest: /home/ec2-user/docker-compose.yml
+
+    - name: Deploy containers
+      shell: |
+        docker-compose down
+        docker-compose pull
+        docker-compose up -d
+      args:
+        chdir: /home/ec2-user/

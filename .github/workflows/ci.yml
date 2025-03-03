@@ -28,5 +28,5 @@ jobs:
     steps:
       - name: Trigger Jenkins Deployment
         run: |
-          curl -u "Miruna1:${{ secrets.JENKINS_API_TOKEN }}" -X POST \
+          curl -u "miruna1:${{ secrets.JENKINS_API_TOKEN }}" -X POST \
           "http://${{ secrets.JENKINS_URL }}/job/deploy-django/build?token=${{ secrets.JENKINS_TRIGGER_TOKEN }}"

@@ -80,7 +80,7 @@ if os.environ.get("DOCKERIZED") == "true":
             'NAME': os.getenv('MYSQL_DATABASE', 'myapp'),
             'USER': os.getenv('MYSQL_USER', 'root'),
             'PASSWORD': os.getenv('MYSQL_PASSWORD', 'password'),
-            'HOST': os.getenv('MYSQL_HOST', 'db'),  # În loc de 'localhost'
+            'HOST': os.getenv('MYSQL_HOST', 'db'),
             'PORT': os.getenv('MYSQL_PORT', '3306'),
         }
     }

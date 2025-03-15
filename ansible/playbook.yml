@@ -1,7 +1,9 @@
 ---
 - name: Configure EC2 and Deploy Django App
-  hosts: all
+  hosts: ec2
   become: yes
+  vars:
+    ansible_host: "{{ ansible_host }}"
 
   tasks:
     - name: Update package lists

@@ -23,7 +23,7 @@ pipeline {
 //         }
         stage('Deploy with Ansible') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --extra-vars "DEPLOY_IP=$DEPLOY_IP"'
+                    sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --extra-vars "ansible_host=$DEPLOY_IP"'
             }
         }
     }

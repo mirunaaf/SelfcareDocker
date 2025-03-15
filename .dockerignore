@@ -1,0 +1,16 @@
+# avoid locally generated files
+
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+
+.git/
+.github/
+jenkins/
+ansible/
+
+db.sqlite3
+test.txt

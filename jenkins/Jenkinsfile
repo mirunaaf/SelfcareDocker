@@ -10,12 +10,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/mirunaaf/SelfcareDocker.git'
             }
         }
-        stage('Debug Environment Variables') {
-            steps {
-                sh 'env | grep DOCKER_USERNAME'
-                sh 'echo DEPLOY_IP is set to: $DEPLOY_IP'
-            }
-        }
 //          stage('Deploy to Amazon Linux EC2') {
 //             steps {
 //                 sh 'bash jenkins/deploy_django.sh'

@@ -17,14 +17,13 @@ services:
       retries: 10
 
   web:
-    image: mirunaf/django-app:latest  # Folosește imaginea din Docker Hub
+    image: mirunaf/django-app:latest  # Uses the image from Docker Hub
     container_name: django-app
 #    build: .
     command: sh -c "python3 manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
     restart: always
     environment:
       - DOCKERIZED=true
-#      - DOCKER_USERNAME=${DOCKER_USERNAME}
       - MYSQL_DATABASE=myapp
       - MYSQL_USER=root
       - MYSQL_PASSWORD=password

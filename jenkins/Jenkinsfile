@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_USERNAME = credentials('DOCKER_USERNAME')
+        EC2_PUBLIC_IP = credentials('DEPLOY_IP')
     }
     stages {
         stage('Checkout Code') {
@@ -14,10 +15,6 @@ pipeline {
                 sh 'env | grep DOCKER_USERNAME'
             }
         }
-
-
-
-
 //          stage('Deploy to Amazon Linux EC2') {
 //             steps {
 //                 sh 'bash jenkins/deploy_django.sh'

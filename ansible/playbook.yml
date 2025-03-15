@@ -28,10 +28,11 @@
         dest: "/usr/local/bin/docker-compose"
         mode: 'u+x'
 
-    - name: Copy docker-compose.yml to server
-      copy:
-        src: ../docker-compose.yml
+    - name: Download latest docker-compose.yml
+      get_url:
+        url: "https://raw.githubusercontent.com/mirunaaf/SelfcareDocker/main/docker-compose.yml"
         dest: /home/ec2-user/docker-compose.yml
+        mode: '0644'
 
     - name: Deploy containers
       shell: |

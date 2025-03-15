@@ -4,12 +4,12 @@ pipeline {
         DOCKER_USERNAME = credentials('DOCKER_USERNAME')
         DEPLOY_IP = credentials('DEPLOY_IP')
     }
-    stages {
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/mirunaaf/SelfcareDocker.git'
-            }
-        }
+//     stages {
+//         stage('Checkout Code') {
+//             steps {
+//                 git branch: 'main', url: 'https://github.com/mirunaaf/SelfcareDocker.git'
+//             }
+//         }
 //          stage('Deploy to Amazon Linux EC2') {
 //             steps {
 //                 sh 'bash jenkins/deploy_django.sh'

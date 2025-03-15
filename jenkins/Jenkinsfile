@@ -13,6 +13,7 @@ pipeline {
         stage('Debug Environment Variables') {
             steps {
                 sh 'env | grep DOCKER_USERNAME'
+                sh 'echo DEPLOY_IP is set to: $DEPLOY_IP'
             }
         }
 //          stage('Deploy to Amazon Linux EC2') {
@@ -22,7 +23,7 @@ pipeline {
 //         }
         stage('Deploy with Ansible') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -e DEPLOY_IP=$DEPLOY_IP'
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --extra-vars "DEPLOY_IP=$DEPLOY_IP"'
             }
         }
     }

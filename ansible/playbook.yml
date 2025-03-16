@@ -23,7 +23,7 @@
         enabled: yes
 
     - name: Add ec2-user to Docker group
-        command: usermod -aG docker ec2-user
+      command: usermod -aG docker ec2-user
 
     - name: Install Docker Compose
       get_url:

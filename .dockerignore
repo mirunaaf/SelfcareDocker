@@ -11,6 +11,7 @@ __pycache__/
 .github/
 jenkins/
 ansible/
+docker-compose.yml
 
 db.sqlite3
 test.txt

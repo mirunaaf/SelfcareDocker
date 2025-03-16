@@ -22,6 +22,9 @@
         state: started
         enabled: yes
 
+    - name: Add ec2-user to Docker group
+        command: usermod -aG docker ec2-user
+
     - name: Install Docker Compose
       get_url:
         url: "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64"
@@ -38,6 +41,7 @@
       shell: |
         docker-compose down
         docker-compose pull
+        docker image prune -af --filter "reference=mirunaf/django-app"  # deletes old versions
         docker-compose up -d
       args:
         chdir: /home/ec2-user/

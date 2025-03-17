@@ -1,20 +1,9 @@
 pipeline {
     agent any
     environment {
-        DOCKER_USERNAME = credentials('DOCKER_USERNAME')
         DEPLOY_IP = credentials('DEPLOY_IP')
     }
     stages {
-//         stage('Checkout Code') {
-//             steps {
-//                 git branch: 'main', url: 'https://github.com/mirunaaf/SelfcareDocker.git'
-//             }
-//         }
-//          stage('Deploy to Amazon Linux EC2') {
-//             steps {
-//                 sh 'bash jenkins/deploy_django.sh'
-//             }
-//         }
         stage('Deploy with Ansible') {
             steps {
                     sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --extra-vars "ansible_host=$DEPLOY_IP"'

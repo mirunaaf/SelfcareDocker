@@ -41,7 +41,7 @@
       shell: |
         docker-compose down
         docker images --filter "reference=mirunaf/django-app" --format "{{.ID}}" | xargs -r docker rmi -f
-        docker-compose pull        docker-compose pull
+        docker-compose pull       
         docker-compose up -d
       args:
         chdir: /home/ec2-user/

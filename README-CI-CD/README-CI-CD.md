@@ -179,21 +179,36 @@ The Ansible playbook automates the setup and deployment of the Django applicatio
     ansible_host: "{{ ansible_host }}"
 
   tasks:
-    - name: Install Docker & Docker Compose
+    - name: Update package lists
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Install Docker
       yum:
         name: docker
         state: present
 
-    - name: Start Docker
+    - name: Start Docker service
       service:
         name: docker
         state: started
         enabled: yes
 
-    - name: Fetch latest docker-compose.yml
+    - name: Add ec2-user to Docker group
+      command: usermod -aG docker ec2-user
+
+    - name: Install Docker Compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64"
+        dest: "/usr/local/bin/docker-compose"
+        mode: 'u+x'
+
+    - name: Download latest docker-compose.yml
       get_url:
         url: "https://raw.githubusercontent.com/mirunaaf/SelfcareDocker/main/docker-compose.yml"
         dest: /home/ec2-user/docker-compose.yml
+        mode: '0644'
 
     - name: Deploy containers
       shell: |
@@ -203,7 +218,6 @@ The Ansible playbook automates the setup and deployment of the Django applicatio
         docker-compose up -d
       args:
         chdir: /home/ec2-user/
-```
 
 
 
